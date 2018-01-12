@@ -1,0 +1,248 @@
+$phone: "only screen and (max-width: 480px)";
+$tablet: "only screen and (max-width: 768px)";
+$desktop: "only screen and (max-width: 960px)";
+$blue-lagoon: #008CF4;
+$grey-light: #F3F3F3;
+$breakpoint: 640px;
+$border: solid 1px rgba(black, 0.4);
+$width: 100%;
+$gutter_unit_size: 5px;
+$font-logo: 'Alegreya', sans-serif;
+$font-family: 'Advent Pro', sans-serif;
+
+@media #{$desktop} {
+}
+
+@media #{$tablet} {
+}
+
+@media #{$phone} {
+}
+
+* {
+  margin: 0px;
+  padding: 0px;
+  font-family: $font-family;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.navbar-list, .navbar-list a, .navbar, .logo {
+  display: flex;
+  align-items: center;
+}
+
+.navbar {
+  display: flex;
+  background: $blue-lagoon;
+  padding: 0 20px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid #d6d7dd;
+  font-size: 14px;
+
+  .navbar-list {
+    height: 80px;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    margin-left: auto;
+    flex-wrap: wrap;
+    flex-grow: 1;
+    justify-content: flex-end;
+    li {
+      position: relative;
+    }
+    a {
+      color: #e9e9e9;
+      text-decoration: none;
+      margin: 0 10px;
+      padding: 0 10px;
+      text-transform: uppercase;
+    }
+    a:hover {
+      color: #ffffff;
+    }
+    i {
+      font-size: 14px;
+      color: inherit;
+      padding-bottom: 1px;
+    }
+    ul {
+      display: none;
+      flex-direction: column;
+      list-style-type: none;
+    }
+    ul li {
+      list-style-type: none;
+      justify-content: center;
+      align-items: flex-end;
+      align-content: flex-start;
+      height: auto !important;
+      opacity: 0.8;
+      background: black;
+      text-align: center;
+    }
+    ul li a:hover {
+      background-color: #a4a4a4;
+      height: 10px;
+    }
+
+    li:hover ul {
+      display: block;
+      height: auto !important;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+    }
+  }
+
+  .logo {
+    margin-right: 15px;
+  }
+  .logo h1 {
+    font-family: $font-logo;
+    font-size: 35px;
+  }
+}
+
+.footer {
+  background: #fafafa;
+  height: 60px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  align-self: flex-end;
+  padding: 0 20px;
+  border-top: 1px solid #e1e2e8;
+  flex-shrink: 0;
+  .logo h3 {
+    font-family: $font-logo;
+  }
+
+  .footer-navbar {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    flex-wrap: wrap;
+    flex-grow: 1;
+    justify-content: flex-end;
+    font-weight: bolder;
+  }
+
+  a {
+    color: #d3d3d3;
+    text-decoration: none;
+    margin: 0 10px;
+    padding: 0 10px;
+    text-transform: uppercase;
+  }
+  a:hover {
+    color: #a4a4a4;
+  }
+}
+
+.tablex {
+  display: flex;
+
+  .tablex__item {
+    order: 0;
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: 100%;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  @for $j from 1 to 11 {
+    &[data-gutter="#{$j}"] {
+      .tablex__item {
+        padding: ($gutter_unit_size * $j);
+      }
+    }
+  }
+
+  &.tablex--bordered {
+    &.tablex--columns .tablex__item:not(.tablex__item--foot),
+    &.tablex--rows .tablex__item {
+      border-bottom: solid 1px #121212;
+    }
+  }
+
+  &.tablex--colored {
+    .tablex__item {
+      background: #fefefe;
+      &.tablex__item--head {
+        color: red;
+      }
+      &.tablex__item--foot {
+        background: #ccc;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: ($breakpoint + 1)) {
+  .tablex {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    .tablex__item {
+      &.tablex__item--foot {
+        margin-bottom: 1rem;
+      }
+    }
+
+    // Bordered table
+    &.tablex--bordered {
+      &.tablex--rows .tablex__item.tablex__item--foot {
+        border-bottom: none;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: $breakpoint) {
+  // Flex direction and wrapping
+  .tablex {
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    &.tablex--columns {
+      .tablex__item {
+        &.tablex__item--head {
+          order: -1;
+        }
+        &.tablex__item--foot {
+          order: 1;
+        }
+      }
+    }
+
+    &.tablex--bordered {
+      &.tablex--rows {
+        border-top: solid 1px #121212;
+      }
+    }
+
+    @for $i from 1 to 11 {
+      &[data-columns="#{$i}"] {
+        .tablex__item {
+          flex-basis: $width/$i;
+          width: $width/$i;
+        }
+      }
+    }
+  }
+}
